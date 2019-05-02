@@ -1,0 +1,139 @@
+{% include "/Templates/header.html" %}
+<nav>
+	<ul class="nav navbar-nav">
+		<li ><a href="/login">Home</a></li>
+		{% if es_admin %}
+			<li><a href="/add" >Añadir</a></li>
+		{% endif %}
+		<li><a href="/showall" >Galeria</a></li>
+		<li><a href="#" >Contacto</a></li>
+		<li><a class="fa fa-power-off" href="{{desconect}}" style="font-size: 20px;color:#9e0022"></a></li>
+	</ul>
+</nav>
+{% include "/Templates/slider.html" %}
+
+<div class="registro" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Modificar</h4>
+			<div class="form-div-centrado"><div class="oculto_submit" id="comprobar_todo" style="display:none" ></div></div>
+        </div>
+        {% if perro %}
+        <div class="modal-body">
+            <div class="out-info">
+                <div class="letter-w3ls">
+
+                    <form name="edit" action="/edit?id={{perro.key.urlsafe()}}" method="post" enctype="multipart/form-data">
+
+                        <div class="main">
+
+                            <div class="form-left-to-w3l form-div-centrado">
+                                <p>Nombre</p>
+                                <input type="text" name="nombre" id="nombre" value="{{perro.nombre}}"  onblur="validar_texto(this)">
+                                <div class="oculto" id="nombreVal" style="display:none;" ></div>
+                            </div>
+
+                            <div class="form-right-to-w3ls form-div-centrado">
+                                <p>Raza</p>
+                                <input type="text" name="raza" id="raza" value="{{perro.raza}}" onblur="validar_texto(this)">
+                                <div class="oculto" id="razaVal" style="display:none" ></div>
+                            </div>
+                        </div>
+
+                        <div class="main">
+                            <div class="form-left-to-w3l form-div-centrado">
+                                <p>Fecha Nacimiento</p>
+                                <input type="date" name="nacimiento" id="nacimiento" value="{{perro.nacimiento}}" onblur="validar_date(this)" >
+                                <div class="oculto" id="nacimientoVal" style="display:none" ></div><br>
+                            </div>
+
+                            <div class="form-right-to-w3ls form-div-centrado">
+                                <p>Tamaño de raza</p>
+                                <select class="form-control2" name="tamanho" id="tamanho" onblur="validar_opcion(this)">
+                                    <option value="">-Elija tamaño-</option>
+                                    <option value="Pequena" {% if perro.tamanho=="Pequena" %} selected {% endif %}>Pequeña</option>
+                                    <option value="Mediana" {% if perro.tamanho=="Mediana" %} selected {% endif %}>Mediana</option>
+                                    <option value="Grande" {% if perro.tamanho=="Grande" %} selected {% endif %}>Grande</option>
+                                    <option value="Gigante" {% if perro.tamanho=="Gigante" %} selected {% endif %}>Gigante</option>
+								</select>
+								<div class="oculto" id="tamanhoVal" style="display:none" ></div><br>
+                            </div>
+                        </div>
+
+                        <div class="main">
+
+                            <div class="form-left-to-w3l form-div-centrado">
+                                <p>Sexo</p>
+                                <select class="form-control" name="sexo" id="sexo" onblur="validar_opcion(this)">
+                                    <option value="">-Elija sexo-</option>
+                                    <option value="Hembra" {% if perro.sexo=="Hembra" %} selected {% endif %}>Hembra</option>
+                                    <option value="Macho" {% if perro.sexo=="Macho" %} selected {% endif %}>Macho</option>
+                                </select>
+								<div class="oculto" id="sexoVal" style="display:none" ></div><br>
+                            </div>
+
+                            <div class="form-right-to-w3ls form-div-centrado">
+                                <p>Color</p>
+                                <input type="text" name="color" id="color" value="{{perro.color}}" onblur="validar_texto(this)">
+                                <div class="oculto" id="colorVal" style="display:none" ></div><br>
+							</div>
+                        </div>
+
+                        <div class="main">
+                            <div class="form-left-to-w3l">
+                                <p>Foto actual</p>
+                                <div id="horizontalTab">
+                                    <ul class="resp-tabs-list">
+                                        <li class="resp-tab-item" style='opacity:0;display:none'></li>
+                                        <div class="resp-tabs-container">
+                                            <div class="tab-1 resp-tab-content">
+                                                <div class="gallery-grid2" style="position: center">
+                                                    <img src='/image?id={{perro.key.urlsafe()}}' class="img-responsive" alt=" " style="width: 50%"; height="50%;" />
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-right-to-w3ls form-div-centrado">
+                                <p style="margin-top:20px">Cambiar foto</p>
+                                <input type="file" name="nueva_foto" id="nueva_foto" value="" accept="image/*" >
+
+                                <p style="margin-top:20px">Adoptado</p>
+                                <select class="form-control2" name="adoptado" id="adoptado" onblur="validar_opcion(this)">
+                                    <option value="">-</option>
+                                    <option value="No" {% if perro.adoptado=="No" %} selected {% endif %}>No</option>
+                                    <option value="Si" {% if perro.adoptado=="Si" %} selected {% endif %}>Si</option>
+                                </select>
+                                <div class="oculto" id="adoptadoVal" style="display:none" ></div><br>
+                            </div>
+
+                        </div>
+
+                        <div class="form-control-w3l form-div-centrado">
+                            <p>Descripción</p>
+                            <textarea name="descripcion" id="descripcion" placeholder="Descripción..." onblur="validar_texto(this)"> {{perro.descripcion}}</textarea>
+                            <div class="oculto" id="descripcionVal" style="display:none" ></div><br>
+                        </div>
+
+                        <div class="btnn">
+                            <button class="confirmar" type="button" data-dismiss="modal" aria-label="Confirmar" onclick="validar_edit('edit')">Confirmar</button>
+							<!--button type="submit">Confirmar</button><br-->
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!--//register form-->
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="outs_more-buttn">
+	<input type="button" data-toggle="modal" data-target="#myModal" value="Volver" onClick="history.go(-1);return true;" style="margin-top: 2%">
+
+</div>
+
+{% include "/Templates/footer.html" %}

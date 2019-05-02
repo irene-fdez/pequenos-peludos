@@ -1,0 +1,112 @@
+{% include "/Templates/header.html" %}
+<nav>
+	<ul class="nav navbar-nav">
+		<li ><a href="/login">Home</a></li>
+		{% if es_admin %}
+			<li class="active"><a href="/add" >Añadir</a></li>
+		{% endif %}
+		<li><a href="/showall" >Galeria</a></li>
+		<li><a href="#" >Contacto</a></li>
+
+		<li><a class="fa fa-power-off" href="{{desconect}}" style="font-size: 20px;color:#9e0022"></a></li>
+	</ul>
+</nav>
+{% include "/Templates/slider.html" %}
+
+<div class="registro" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">Registrar</h4>
+			<div class="form-div-centrado"><div class="oculto_submit" id="comprobar_todo" style="display:none" ></div></div>
+		</div>
+
+		<div class="modal-body" >
+			<!-- Register form -->
+			<div class="out-info" >
+				<div class="letter-w3ls" >
+
+					<form name="add" action="/add" method="post" enctype="multipart/form-data">
+
+						<div class="main" >
+
+							<div class="form-left-to-w3l form-div-centrado" >
+								<p>Nombre</p>
+								<input type="text" name="nombre" id="nombre" placeholder="Nombre"  onblur="validar_texto(this)">
+								<div class="oculto" id="nombreVal" style="display:none;" ></div>
+							</div>
+							<div class="form-right-to-w3ls form-div-centrado" >
+								<p>Raza</p>
+								<input type="text" name="raza" id="raza" placeholder="Raza"  onblur="validar_texto(this)">
+								<div class="oculto" id="razaVal" style="display:none" ></div>
+
+							</div>
+						</div>
+
+						<div class="main">
+							<div class="form-left-to-w3l form-div-centrado">
+								<p>Fecha Nacimiento</p>
+								<input type="date" name="nacimiento" id="nacimiento" value=""  onblur="validar_date(this)">
+								<div class="oculto" id="nacimientoVal" style="display:none" ></div><br>
+							</div>
+
+							<div class="form-right-to-w3ls form-div-centrado">
+								<p>Tamaño de raza</p>
+								<select class="form-control2" name="tamanho" id="tamanho" onblur="validar_opcion(this)">
+									<option value="">-Elija tamaño-</option>
+									<option value="Pequena">Pequeña</option>
+									<option value="Mediana">Mediana</option>
+									<option value="Grande">Grande</option>
+									<option value="Gigante">Gigante</option>
+								</select>
+								<div class="oculto" id="tamanhoVal" style="display:none" ></div><br>
+							</div>
+						</div>
+
+						<div class="main">
+
+							<div class="form-left-to-w3l form-div-centrado">
+								<p>Sexo</p>
+								<select class="form-control2" name="sexo" id="sexo" onblur="validar_opcion(this)">
+									<option value="">-Elija sexo-</option>
+									<option value="Hembra">Hembra</option>
+									<option value="Macho">Macho</option>
+								</select>
+								<div class="oculto" id="sexoVal" style="display:none" ></div><br>
+							</div>
+
+							<div class="form-right-to-w3ls form-div-centrado">
+								<p>Color</p>
+								<input type="text" name="color" id="color" placeholder="Color"  onblur="validar_texto(this)">
+								<div class="oculto" id="colorVal" style="display:none" ></div><br>
+							</div>
+						</div>
+
+						<div class="form-add-to-w3ls add form-div-izq">
+							<p>Foto</p>
+							<input type="file" name="foto" id="foto" value="" accept="image/*"  onblur="validar_file(this)">
+							<div class="oculto" id="fotoVal" style="display:none; text-align: left" ></div><br>
+						</div><br>
+
+						<div class="form-control-w3l form-div-centrado">
+							<p>Descripción</p>
+							<textarea name="descripcion" id="descripcion" placeholder="Descripción..."  onblur="validar_texto(this)"></textarea>
+							<div class="oculto" id="descripcionVal" style="display:none" ></div><br>
+						</div>
+
+						<div class="btnn">
+							<button class="confirmar" type="button"  data-dismiss="modal" aria-label="Confirmar" onclick="validar_add('add')">Confirmar</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<!--//register form-->
+		</div>
+	</div>
+
+</div>
+<div class="outs_more-buttn">
+	<input type="button" data-toggle="modal" data-target="#myModal" value="Volver" onClick="history.go(-1);return true;" style="margin-top: 2%">
+</div>
+
+{% include "/Templates/footer.html" %}

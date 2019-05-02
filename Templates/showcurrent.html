@@ -1,0 +1,110 @@
+{% include "/Templates/header.html" %}
+<nav>
+	<ul class="nav navbar-nav">
+		<li ><a href="/login">Home</a></li>
+		{% if es_admin %}
+			<li><a href="/add" >Añadir</a></li>
+		{% endif %}
+		<li class="active"><a href="/showall" >Galeria</a></li>
+		<li><a href="#" >Contacto</a></li>
+
+		<li><a class="fa fa-power-off" href="{{desconect}}" style="font-size: 20px;color:#9e0022"></a></li>
+	</ul>
+</nav>
+{% include "/Templates/slider.html" %}
+
+
+
+<div class="portfolio" id="gallery">
+{% if perro %}
+    <h3 class="title">{%if perro.sexo == "Hembra" %} Esta {% else %} Este {% endif %} es <span class="home-banner"
+                                                                                               style="font-weight: bold">{{perro.nombre}} {{fechaa}}</span>
+    </h3>
+
+
+    <div class="clearfix"></div>
+
+    <div class="vista_detalle">
+
+        <div class="main">
+
+            <div class="form-left-to-w3l">
+                <div class="sap_tabs">
+                    <div id="horizontalTab">
+                        <ul class="resp-tabs-list">
+                            <li class="resp-tab-item" style='opacity:0;display:none'><span>All</span></li>
+                            <div class="resp-tabs-container">
+                                <div class="tab-1 resp-tab-content">
+                                    <div class="gallery-gride" style="position: center">
+                                         <img src='/image?id={{perro.key.urlsafe()}}' data-big-src='/image?id={{perro.key.urlsafe()}}' class="img-responsive" alt=" "/>
+                                         <p style='opacity:0;display:none;'>{{perro.nombre}}, {{perro.raza}} de {{edad}}{% if edad != "Nació hoy" %} de edad. {% endif %}</p>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <!-- boton de adopcion -->
+                <div class="outs_more-buttn">
+                    {% if perro.adoptado != "Si" %}
+                    <a class="adopt" title="adoptar" href="/adopt?id={{perro.key.urlsafe()}}" style="color: #0b0b0b">Adoptar <span class="fa fa-home" style="color: #9d9d9d; font-size: 17px" aria-hidden="true"></span></a>
+                    {% endif %}
+                </div>
+                <!-- //boton de adopcion -->
+
+            </div>
+
+            <div class="form-right-to-w3ls">
+                <div class="slider-info2">
+                    <p><span class="home-banner" style="font-weight: bold">Ficha técnica:</span></p>
+                </div>
+                <div class="slider-info3">
+                    <p><b>Nombre:</b> {{perro.nombre}}</p>
+                    <p><b>Raza:</b> {{perro.raza}}</p>
+                    <p><b>Sexo:</b> {{perro.sexo}}</p>
+                    <p><b>Color:</b> {{perro.color}}</p>
+                    <p><b>Tamaño:</b> {{tam}}</p>
+                    <p><b>Edad:</b> {{edad}}</p>
+                    <p><b>Estado:</b> {{estado}}</p>
+                    <p><b>Descripción:</b> {{perro.descripcion}}</p>
+                </div>
+            </div>
+
+{% endif %}
+        </div>
+    </div>
+</div>
+
+
+<div class="outs_more-buttn">
+    <input class="boton" type="button" value="Volver" onClick="location='/showall'">
+
+    <a title="borrar" href="#" data-toggle="modal" data-target="#myModal" style="float: right; margin-right: 2%; color: #0b0b0b">Borrar</a>
+    <a title="editar" href="/edit?id={{perro.key.urlsafe()}}" style="float: right; margin-right: 2%; color: #0b0b0b">Editar</a>
+</div>
+
+
+<!-- modal -->
+<div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"  style="background-color: #9d9d9d">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Esta seguro de que quiere <span style="color: #9e0022" >borrar</span> a <span class="home-banner" style="font-weight: bold">{{perro.nombre}}</span>?</h4>
+            </div>
+            <form action="/delete?id={{perro.key.urlsafe()}}" method="post">
+                <div class="btnn outs_more-buttn">
+                    <button class="boton" type="submit">Confirmar</button>
+                    <button class="confirmar" type="button"  data-dismiss="modal" aria-label="Close">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- //modal -->
+
+
+
+{% include "/Templates/footer.html" %}

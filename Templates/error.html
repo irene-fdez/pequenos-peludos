@@ -1,0 +1,28 @@
+{% include "/Templates/header.html" %}
+<nav>
+	<ul class="nav navbar-nav">
+		<li ><a href="/login">Home</a></li>
+		{% if es_admin %}
+			<li><a href="/add" >Añadir</a></li>
+		{% endif %}
+		<li><a href="/showall" >Galeria</a></li>
+		<li><a href="#" >Contacto</a></li>
+		<li><a class="fa fa-power-off" href="{{desconect}}" style="font-size: 20px;color:#9e0022"></a></li>
+	</ul>
+</nav>
+{% include "/Templates/slider.html" %}
+
+
+
+<div class="portfolio" id="gallery">
+
+    <h3 class="title"><span class="home-banner">Se ha producido un error</span></h3>
+    <p style="text-align: center; font-size: 20px">{{error_msg}}</p>
+
+</div>
+<div class="outs_more-buttn">
+    <input class="boton" type="button" data-toggle="modal" data-target="#myModal" value="Volver" onClick="history.go(-1);return true;">
+</div>
+
+
+{% include "/Templates/footer.html" %}

@@ -1,0 +1,111 @@
+{% include "/Templates/header.html" %}
+<nav>
+	<ul class="nav navbar-nav">
+		<li ><a href="/login">Home</a></li>
+		{% if es_admin %}
+			<li><a href="/add" >Añadir</a></li>
+		{% endif %}
+		<li class="active"><a href="/showall" >Galeria</a></li>
+		<li><a href="#" >Contacto</a></li>
+		<li><a class="fa fa-power-off" href="{{desconect}}" style="font-size: 20px;color:#9e0022"></a></li>
+	</ul>
+</nav>
+{% include "/Templates/slider.html" %}
+
+
+
+<div class="portfolios" id="gallery">
+
+    <h3 class="title" style="margin-top: 1%">Nuestra galería</h3>
+    <p style="text-align: center">Pulse en la imagen para ver en detalle {{numRazas}}</p><br>
+
+    <div class="sap_tabs">
+        <div id="horizontalTab">
+            <ul class="resp-tabs-list">
+                <li class="resp-tab-item"><span>Todos</span></li>
+                <li class="resp-tab-item"><span>Sin adoptar</span></li>
+                <li class="resp-tab-item"><span>Adoptados</span></li>
+                <li class="resp-tab-item" data-toggle="modal" data-target="#myModal"><span>Buscar</span></li>
+            </ul>
+            <div class="clearfix"></div>
+
+            {% if numPerros > 0 %}
+                <div class="resp-tabs-container">
+                    <div class="tab-1 resp-tab-content">
+                        {% for perro in perros %}
+                            <div class="col-md-3 col-sm-3 col-xs-6 portfolio-grids">
+                                <div class="gallery-grid">
+                                    <a title="detalles" href="/showcurrent?id={{perro.key.urlsafe()}}">
+                                        <img src='/image?id={{perro.key.urlsafe()}}' class="img-responsive" alt="detalles" />
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="tab-1 resp-tab-content">
+                        {% for perro in perros %}
+                        {% if perro.adoptado != "Si" %}
+
+                            <div class="col-md-3 col-sm-3 col-xs-6 portfolio-grids">
+                                <div class="gallery-grid">
+                                    <a title="detalles" href="/showcurrent?id={{perro.key.urlsafe()}}">
+                                        <img src='/image?id={{perro.key.urlsafe()}}' class="img-responsive" alt="detalles" />
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="tab-1 resp-tab-content">
+                        {% for perro in perros %}
+                        {% if perro.adoptado == "Si" %}
+
+                            <div class="col-md-3 col-sm-3 col-xs-6 portfolio-grids">
+                                <div class="gallery-grid">
+                                    <a title="detalles" href="/showcurrent?id={{perro.key.urlsafe()}}">
+                                        <img src='/image?id={{perro.key.urlsafe()}}' class="img-responsive" alt="detalles" />
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    </div>
+                </div>
+            {% else %}
+                <p style="text-align: center; font-size: 20px;">No hay perros registrados</p><br>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<!-- banner de busqueda-->
+ <div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content"  style="background-color: #9d9d9d">
+            <div class="modal-header" style="margin-bottom: 2%">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Buscar</h4>
+            </div>
+            <!-- buscar form -->
+            {% include "Templates/search.html" %}
+            <!--//buscar form-->
+        </div>
+    </div>
+</div>
+<!-- //banner de busqueda-->
+
+
+<div class="outs_more-buttn" style="margin-top: 2%">
+    <input type="button" data-toggle="modal" data-target="#myModal" value="Volver" onClick="history.go(-1);return true;" >
+</div>
+
+{% include "/Templates/footer.html" %}
