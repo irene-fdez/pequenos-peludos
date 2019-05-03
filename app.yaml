@@ -10,8 +10,9 @@ handlers:
   static_dir: Utilities
 
 - url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+  static_files: dog2.png
+  upload: dog2\.png
+
 
 - url: .*
   script: main.app

@@ -80,9 +80,10 @@
 
 <div class="outs_more-buttn">
     <input class="boton" type="button" value="Volver" onClick="location='/showall'">
-
-    <a title="borrar" href="#" data-toggle="modal" data-target="#myModal" style="float: right; margin-right: 2%; color: #0b0b0b">Borrar</a>
-    <a title="editar" href="/edit?id={{perro.key.urlsafe()}}" style="float: right; margin-right: 2%; color: #0b0b0b">Editar</a>
+    {% if es_admin %}
+        <a title="borrar" href="#" data-toggle="modal" data-target="#myModal" style="float: right; margin-right: 2%; color: #0b0b0b">Borrar</a>
+        <a title="editar" href="/edit?id={{perro.key.urlsafe()}}" style="float: right; margin-right: 2%; color: #0b0b0b">Editar</a>
+    {% endif %}
 </div>
 
 
